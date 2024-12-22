@@ -1,0 +1,13 @@
+train: C:\Users\sakka\Downloads\food calorie.v1i.yolov5pytorchh\train\images
+val: C:\Users\sakka\Downloads\food calorie.v1i.yolov5pytorchh\valid\images
+test: C:\Users\sakka\Downloads\food calorie.v1i.yolov5pytorchh\test\images
+
+nc: 3
+names: ['ana_yemek', 'corba', 'yan_yemek']
+
+roboflow:
+  workspace: veriproje
+  project: food-calorie-mxkmd
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/veriproje/food-calorie-mxkmd/dataset/1

@@ -1,0 +1,20 @@
+name: food_calorie
+description: A new Flutter project to upload images and send to Flask server
+publish_to: 'none' # Remove this line if you plan to publish
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"  # Dart SDK constraint
+
+dependencies:
+  flutter:
+    sdk: flutter
+  image_picker: ^1.1.2  # Updated version
+  http: ^1.2.2          # Updated version
+  http_parser: ^4.1.1   # Updated version
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

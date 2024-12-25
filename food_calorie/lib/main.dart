@@ -101,6 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return predictions.isNotEmpty ? getTable() : pickImgUi();
   }
 
+  
+
   Widget pickImgUi() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

@@ -84,8 +84,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
           totalCalories =
               predictions.fold(0, (sum, item) => sum + item['calories'] as int);
+
           totalPrice =
               predictions.fold(0, (sum, item) => sum + item['price'] as int);
+
+          // Apply discount if conditions are met
+          int anaYemekCount =
+              predictions.where((item) => item['name'] == "ana_yemek").length;
+          int yanYemekCount =
+              predictions.where((item) => item['name'] == "yan_yemek").length;
+          int corbaCount =
+              predictions.where((item) => item['name'] == "corba").length;
+
+          if (anaYemekCount >= 2 && yanYemekCount >= 1 && corbaCount >= 1) {
+            totalPrice -= 10; // Apply a 10-unit discount
+          }
 
           setState(() {});
         } else {
@@ -96,12 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
   }
-
-  Widget getUi() {
-    return predictions.isNotEmpty ? getTable() : pickImgUi();
-  }
-
-  
 
   Widget pickImgUi() {
     return Column(
@@ -154,8 +161,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Image.memory(
                   img,
-                  height: 150,
-                  width: 150,
+                  height: 200, // Enlarged image size
+                  width: 200,
                 ),
               );
             }).toList(),
@@ -228,6 +235,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
+                if (totalPrice <
+                    predictions.fold(
+                        0, (sum, item) => sum + item['price'] as int))
+                  TableRow(
+                    decoration: BoxDecoration(color: Colors.green.shade100),
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Fix Menu ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "-10",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "N/A",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
                 TableRow(
                   decoration: BoxDecoration(color: Colors.teal.shade100),
                   children: [
@@ -272,7 +311,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: const Text("Food Calorie Tracker")),
       body: SingleChildScrollView(
         child: Center(
-          child: getUi(),
+          child: predictions.isNotEmpty ? getTable() : pickImgUi(),
         ),
       ),
     );
